@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./Kmeans-backend
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=production
+
+  frontend:
+    build: ./Kmeans-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend

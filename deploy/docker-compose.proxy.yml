@@ -1,0 +1,61 @@
+version: '3.8'
+
+services:
+  nginx-proxy:
+    image: jwilder/nginx-proxy:latest
+    container_name: nginx-proxy
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./certs:/etc/nginx/certs:rw
+      - ./vhost.d:/etc/nginx/vhost.d:rw
+      - ./html:/usr/share/nginx/html:rw
+    networks:
+      - proxy-tier
+
+  acme-companion:
+    image: nginxproxy/acme-companion:latest
+    container_name: nginx-proxy-acme
+    restart: always
+    depends_on:
+      - nginx-proxy
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./certs:/etc/nginx/certs:rw
+      - ./vhost.d:/etc/nginx/vhost.d:rw
+      - ./html:/usr/share/nginx/html:rw
+    environment:
+      - NGINX_PROXY_CONTAINER=nginx-proxy
+    networks:
+      - proxy-tier
+
+  backend:
+    image: mafercho/kmeans-backend:latest
+    restart: always
+    environment:
+      - VIRTUAL_HOST=api.${DOMAIN}
+      - LETSENCRYPT_HOST=api.${DOMAIN}
+      - LETSENCRYPT_EMAIL=${EMAIL}
+    expose:
+      - "5000"
+    networks:
+      - proxy-tier
+
+  frontend:
+    image: mafercho/kmeans-frontend:latest
+    restart: always
+    environment:
+      - VIRTUAL_HOST=${DOMAIN}
+      - LETSENCRYPT_HOST=${DOMAIN}
+      - LETSENCRYPT_EMAIL=${EMAIL}
+    expose:
+      - "80"
+    networks:
+      - proxy-tier
+
+networks:
+  proxy-tier:
+    driver: bridge

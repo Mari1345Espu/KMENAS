@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  backend:
+    image: mafercho/kmeans-backend:latest
+    restart: always
+    environment:
+      - FLASK_ENV=production
+    # Exponer solo en localhost; nginx en la máquina se encargará del proxy público
+    ports:
+      - "127.0.0.1:5000:5000"
+
+  frontend:
+    image: mafercho/kmeans-frontend:latest
+    restart: always
+    # Servimos frontend en localhost:8080 y nginx hará proxy en :80/443
+    ports:
+      - "127.0.0.1:8080:80"
