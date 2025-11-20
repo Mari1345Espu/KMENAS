@@ -1,4 +1,10 @@
-# Despliegue rápido - KMEANS
+# K-Means Clustering - Despliegue Rápido
+
+> 🚀 **¿Quieres desplegar AHORA?** → [**Ver QUICK_START.md**](QUICK_START.md) (2 minutos)
+> 
+> 📋 **Referencia rápida** → [**CHEAT_SHEET.md**](CHEAT_SHEET.md) (todos los comandos)
+> 
+> 🗺️ **¿Qué método elegir?** → [**DEPLOY_OPTIONS.md**](DEPLOY_OPTIONS.md) (comparación completa)
 
 Este repositorio contiene una pequeña aplicación K-Means con dos servicios:
 
@@ -9,6 +15,25 @@ Ya construimos y subimos las imágenes a Docker Hub bajo el usuario `mafercho`:
 
 - `mafercho/kmeans-backend:latest`
 - `mafercho/kmeans-frontend:latest`
+
+## 📚 Guías Disponibles
+
+- **[QUICK_START.md](QUICK_START.md)** ⚡ - Despliegue en 2 minutos (local)
+- **[CHEAT_SHEET.md](CHEAT_SHEET.md)** 📋 - Referencia rápida de comandos
+- **[DEPLOY_OPTIONS.md](DEPLOY_OPTIONS.md)** 📊 - Comparación de todos los métodos
+- **[DEPLOYMENT_FLOWCHART.md](DEPLOYMENT_FLOWCHART.md)** 🗺️ - Diagramas y arquitectura
+- **[deploy/README_VPS.md](deploy/README_VPS.md)** 🖥️ - Guía detallada para VPS
+- **[render.yaml](render.yaml)** ☁️ - Configuración para Render.com
+- **[deploy-local.sh](deploy-local.sh)** 🤖 - Script automático para despliegue local
+
+## 🎯 Métodos de Despliegue Rápido
+
+| Método | Tiempo | Comando |
+|--------|--------|---------|
+| **Local con script** | 2 min | `./deploy-local.sh` |
+| **Local con Docker** | 2 min | `docker compose -f docker-compose.prebuilt.yml up -d` |
+| **Render.com** | 5 min | Conectar repo y usar `render.yaml` |
+| **VPS automático** | 15 min | `cd deploy && ./deploy_vps.sh` |
 
 Opciones de despliegue recomendadas
 ----------------------------------
