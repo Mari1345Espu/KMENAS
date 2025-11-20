@@ -13,4 +13,5 @@ COPY app.py .
 EXPOSE 5000
 
 # Use gunicorn for production-grade serving
-CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:5000", "app:app"]
+# Render sets PORT env var, default to 5000 for local development
+CMD gunicorn -w 4 -b 0.0.0.0:${PORT:-5000} app:app
