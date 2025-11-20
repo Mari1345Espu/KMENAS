@@ -1,0 +1,26 @@
+services:
+  # Backend API
+  - type: web
+    name: kmeans-backend
+    env: docker
+    dockerfilePath: ./Kmeans-backend/Dockerfile
+    dockerContext: ./Kmeans-backend
+    plan: free
+    region: oregon
+    healthCheckPath: /api/health
+    envVars:
+      - key: FLASK_ENV
+        value: production
+    # Alternative: use pre-built image
+    # dockerImage: docker.io/mafercho/kmeans-backend:latest
+
+  # Frontend
+  - type: web
+    name: kmeans-frontend
+    env: docker
+    dockerfilePath: ./Kmeans-frontend/Dockerfile
+    dockerContext: ./Kmeans-frontend
+    plan: free
+    region: oregon
+    # Alternative: use pre-built image
+    # dockerImage: docker.io/mafercho/kmeans-frontend:latest
